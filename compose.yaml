@@ -1,0 +1,18 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ledger-data:/app/data
+    environment:
+      LEDGER_DB: /app/data/ledger.sqlite3
+      CORS_ORIGINS: http://localhost:5173,http://127.0.0.1:5173
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+volumes:
+  ledger-data:
